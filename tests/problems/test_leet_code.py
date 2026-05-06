@@ -1,6 +1,21 @@
 import pytest
 from leet_code.problems import isPalindrome2
 from leet_code.problems import removeDuplicatesFromSorted
+from leet_code.problems import twoSum, twoSumHash
+
+
+@pytest.mark.parametrize(
+    ("nums", "target", "expected"),
+    [
+        ([2, 7, 11, 15], 9, [0, 1]),
+        ([3, 2, 4], 6, [1, 2]),
+        ([3, 3], 6, [0, 1]),
+        ([-1, -2, -3, -4, -5], -8, [2, 4]),
+    ],
+)
+def test_two_sums(nums, target, expected):
+    assert twoSum(nums, target) == expected
+    assert twoSumHash(nums, target) == expected
 
 
 @pytest.mark.parametrize(
