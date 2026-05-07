@@ -55,9 +55,8 @@ def isSubsequenceWhile(s, t):
     i = 0
     j = 0
     while i < len(s) and j < len(t):
-        for j, ct in enumerate(t[i:]):
-            if s[i] == t[j]:
-                i += 1
+        if s[i] == t[j]:
+            i += 1
         j += 1
     if i == len(s):
         return True
