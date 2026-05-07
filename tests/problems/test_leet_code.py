@@ -1,7 +1,19 @@
 import pytest
-from leet_code.problems import isPalindrome2
-from leet_code.problems import removeDuplicatesFromSorted
-from leet_code.problems import twoSum, twoSumHash
+from leet_code.problems import *
+
+
+@pytest.mark.parametrize(
+    ("s", "t", "exp"),
+    [
+        ("abc", "ahbgdc", True),
+        ("axc", "ahbgdc", False),
+        ("acb", "ahbgdc", False),
+        ("aza", "abzba", True),
+    ],
+)
+def test_is_sub_sequence(s, t, exp):
+    assert isSubsequence(s, t) == exp
+    assert isSubsequenceWhile(s, t) == exp
 
 
 @pytest.mark.parametrize(
@@ -36,6 +48,7 @@ def test_valid_palindrome(test, expected):
 @pytest.mark.parametrize(
     ("test", "expected"),
     [
+        ([1, 1, 1, 1, 1], (2, [1, 1])),
         ([1, 1, 2, 2, 3], (5, [1, 1, 2, 2, 3])),
         ([1, 1, 1, 2, 2, 3], (5, [1, 1, 2, 2, 3])),
         ([1, 2, 2, 2, 2, 3], (4, [1, 2, 2, 3])),
@@ -44,17 +57,6 @@ def test_valid_palindrome(test, expected):
             [
                 1,
                 1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                2,
-                2,
-                2,
-                2,
-                2,
                 2,
                 2,
                 2,
@@ -64,28 +66,9 @@ def test_valid_palindrome(test, expected):
                 3,
                 3,
                 3,
-                3,
-                3,
-                3,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
                 5,
             ],
-            (8, [1, 1, 2, 2, 3, 3, 5, 5]),
+            (7, [1, 1, 2, 2, 3, 3, 5]),
         ),
     ],
 )
