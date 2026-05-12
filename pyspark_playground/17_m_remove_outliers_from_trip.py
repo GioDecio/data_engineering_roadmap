@@ -96,26 +96,26 @@ def remove_outliers_generic(df: DataFrame, headers: list[str]) -> DataFrame:
     return df.filter(reduce(lambda a, b: a & b, conditions))
 
 
-data = [
-    (1, 250.0, 4.2),
-    (2, 270.0, 3.8),
-    (3, 1200.0, 4.5),
-    (4, 80.0, 2.5),
-    (5, 240.0, 1.2),
-    (6, 230.0, 4.8),
-    (7, 245.0, 4.1),
-    (8, 255.0, 4.0),
-    (9, 260.0, 5.4),
-    (10, 265.0, 3.9),
-    (11, 275.0, 4.3),
-    (12, 100.0, 0.5),
-    (13, 950.0, 4.7),
-    (14, 300.0, 4.0),
-    (15, 400.0, 1.0),
-]
+if __name__ == "__main__":
+    data = [
+        (1, 250.0, 4.2),
+        (2, 270.0, 3.8),
+        (3, 1200.0, 4.5),
+        (4, 80.0, 2.5),
+        (5, 240.0, 1.2),
+        (6, 230.0, 4.8),
+        (7, 245.0, 4.1),
+        (8, 255.0, 4.0),
+        (9, 260.0, 5.4),
+        (10, 265.0, 3.9),
+        (11, 275.0, 4.3),
+        (12, 100.0, 0.5),
+        (13, 950.0, 4.7),
+        (14, 300.0, 4.0),
+        (15, 400.0, 1.0),
+    ]
+    columns = ["trip_id", "trip_cost", "rating"]
+    df = spark.createDataFrame(data, columns)
 
-columns = ["trip_id", "trip_cost", "rating"]
-df = spark.createDataFrame(data, columns)
-
-df_result = remove_outliers_generic(df, ["trip_cost", "rating"])
-df_result.show()
+    df_result = remove_outliers_generic(df, ["trip_cost", "rating"])
+    df_result.show()

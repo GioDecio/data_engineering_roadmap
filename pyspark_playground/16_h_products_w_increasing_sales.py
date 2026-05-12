@@ -149,32 +149,25 @@ def products_with_increasing_sales_rdd(
     )
 
 
-# Create product DataFrame
-products_data = [
-    (1, "Wireless Mouse"),
-    (2, "Mechanical Keyboard"),
-    (3, "USB-C Hub"),
-    (4, "Webcam"),
-]
-df_products = spark.createDataFrame(products_data, ["product_id", "product_name"])
+if __name__ == "__main__":
+    products_data = [
+        (1, "Wireless Mouse"),
+        (2, "Mechanical Keyboard"),
+        (3, "USB-C Hub"),
+        (4, "Webcam"),
+    ]
+    df_products = spark.createDataFrame(products_data, ["product_id", "product_name"])
 
-# Create sales DataFrame
-sales_data = [
-    (1, 2022, 1200.00),
-    (1, 2023, 1500.00),
-    (2, 2022, 2000.00),
-    (2, 2023, 1800.00),
-    (3, 2022, 800.00),
-    (3, 2023, 900.00),
-    (4, 2023, 1100.00),
-]
-df_sales = spark.createDataFrame(sales_data, ["product_id", "year", "revenue"])
+    sales_data = [
+        (1, 2022, 1200.00),
+        (1, 2023, 1500.00),
+        (2, 2022, 2000.00),
+        (2, 2023, 1800.00),
+        (3, 2022, 800.00),
+        (3, 2023, 900.00),
+        (4, 2023, 1100.00),
+    ]
+    df_sales = spark.createDataFrame(sales_data, ["product_id", "year", "revenue"])
 
-# df_result = products_with_increasing_sales_with_coalesce(df_products, df_sales)
-# df_result.show()
-
-# df_result_imp = products_with_increasing_sales_groupby(df_products, df_sales)
-# df_result_imp.show()
-
-df_result = products_with_increasing_sales_rdd(df_products, df_sales)
-df_result.show()
+    df_result = products_with_increasing_sales_rdd(df_products, df_sales)
+    df_result.show()
