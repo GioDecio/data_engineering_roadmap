@@ -1,0 +1,2 @@
+customer_id,name,email,age,city,purchase_amount
+1,John Doe,john.doe@example.com,30,New York,1234

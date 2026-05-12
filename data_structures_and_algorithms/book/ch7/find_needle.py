@@ -9,7 +9,3 @@ def find_needle(n, h):
     return False
 
 
-h = input("haystack: ")
-n = input("needle: ")
-
-print(find_needle(n, h))
