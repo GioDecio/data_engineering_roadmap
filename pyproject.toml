@@ -13,6 +13,7 @@ dependencies = [
     "pyspark==3.5.5",
 ]
 
+
 [tool.pytest.ini_options]
 pythonpath = [".", "pyspark_playground"]
 addopts = "--cov=data_structures_and_algorithms --cov-report=term-missing --benchmark-disable"
