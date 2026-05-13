@@ -199,7 +199,7 @@ def test_remove_outliers(spark, func, trip_data, expected_ids):
     assert result_ids == expected_ids
 
 
-# --- Exercise 18.
+# --- Exercise 18 ---
 @pytest.mark.parametrize(
     "func",
     [driver_details_for_riders],
@@ -214,3 +214,28 @@ def test_driver_details_for_riders(spark, func, rides_data, drivers_data, expect
     )
     result_ids = {row.ride_id for row in func(rides_df, drivers_df).collect()}
     assert result_ids == expected_ids
+
+
+# --- Exercise 19 ---
+
+
+@pytest.mark.parametrize(
+    "func",
+    [customer_loyalty_score],
+)
+@pytest.mark.parametrize(
+    "rides_data, payment_types_data, ratings_data, customers_data, expected",
+    EX19_PARAMS,
+)
+def test_customer_loyalty_score(
+    spark, func, rides_data, payment_types_data, ratings_data, customers_data, expected
+):
+    rides_df = spark.createDataFrame(rides_data, ["trip_id", "customer_id", "payment_type_id"])
+    payment_types_df = spark.createDataFrame(payment_types_data, ["payment_type_id", "payment_type"])
+    ratings_df = spark.createDataFrame(ratings_data, ["trip_id", "rating"])
+    customers_df = spark.createDataFrame(customers_data, ["customer_id", "name"])
+    result = {
+        (row.customer_id, row.customer_name, row.loyalty_score)
+        for row in func(rides_df, payment_types_df, ratings_df, customers_df).collect()
+    }
+    assert result == expected

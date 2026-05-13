@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import regexp_extract, col, expr
-from pyspark_playground.utils import show
+from utils import show
 
 spark = SparkSession.builder.appName("PlayerStats").getOrCreate()
 

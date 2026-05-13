@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import sum as spark_sum
-from pyspark_playground.utils import show
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
