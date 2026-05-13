@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession, DataFrame
-from utils import show
+from pyspark_playground.utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
