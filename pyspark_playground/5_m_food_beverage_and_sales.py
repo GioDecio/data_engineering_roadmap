@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
@@ -29,4 +30,4 @@ if __name__ == "__main__":
     products = spark.createDataFrame(products_data, ["product_id", "name", "category"])
     sales = spark.createDataFrame(sales_data, ["product_id", "quantity", "revenue"])
     inventory = spark.createDataFrame(inventory_data, ["product_id", "stock"])
-    food_beverage_sales(products, sales, inventory).show()
+    show(food_beverage_sales(products, sales, inventory))

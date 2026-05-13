@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 import pyspark.sql.functions as F
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
@@ -16,4 +17,4 @@ def transform_orders(df: DataFrame) -> DataFrame:
 if __name__ == "__main__":
     PATH = "pyspark_playground/datasets/orders.json"
     df = spark.read.json(PATH, multiLine=True)
-    transform_orders(df).show()
+    show(transform_orders(df))

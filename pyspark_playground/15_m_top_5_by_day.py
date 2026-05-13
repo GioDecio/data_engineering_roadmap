@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession, DataFrame
 import pyspark.sql.functions as F
 from pyspark.sql import Window as W
+from utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -37,4 +38,4 @@ if __name__ == "__main__":
     ]
     columns = ["store_id", "product_id", "sale_date", "quantity_sold", "total_sales"]
     df = spark.createDataFrame(data, columns)
-    top_5_by_day(df).show()
+    show(top_5_by_day(df))

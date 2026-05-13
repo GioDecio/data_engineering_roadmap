@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import col
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
@@ -15,4 +16,5 @@ def filter_customers(df: DataFrame) -> DataFrame:
 if __name__ == "__main__":
     FILEPATH = "pyspark_playground/datasets/customers.csv"
     df = spark.read.csv(path=FILEPATH, inferSchema=True, header=True)
-    filter_customers(df).show()
+
+    show(filter_customers(df))

@@ -6,19 +6,18 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "loguru>=0.7.3",
+    "pre-commit>=4.6.0",
     "pytest>=9.0.3",
     "pytest-benchmark>=5.2.3",
     "pytest-cov>=6.1.0",
+    "pyspark==3.5.5",
 ]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = [".", "pyspark_playground"]
 addopts = "--cov=data_structures_and_algorithms --cov-report=term-missing --benchmark-disable"
 
 [dependency-groups]
 dev = [
     "commitizen>=4.15.1",
-]
-pyspark = [
-    "pyspark==3.5.5",
 ]

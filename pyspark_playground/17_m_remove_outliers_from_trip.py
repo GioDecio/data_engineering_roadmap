@@ -13,6 +13,7 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import col
 from functools import reduce
+from utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -118,4 +119,4 @@ if __name__ == "__main__":
     df = spark.createDataFrame(data, columns)
 
     df_result = remove_outliers_generic(df, ["trip_cost", "rating"])
-    df_result.show()
+    show(df_result)

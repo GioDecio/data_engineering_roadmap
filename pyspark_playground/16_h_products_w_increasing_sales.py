@@ -6,6 +6,7 @@ import re
 
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import expr, col, coalesce, lit, any_value, collect_list
+from utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -45,7 +46,7 @@ def products_with_increasing_sales_distinct(
     # Only include products that have sales records in both years.
     df_sales = df_sales.filter(col("revenue").isNotNull())
 
-    df_sales.show()
+    show(df_sales)
 
     # Provide distinct_years dynamically
     df_distinct_years = df_sales.select("year").distinct().collect()
@@ -83,7 +84,7 @@ def products_with_increasing_sales_groupby(
     # Only include products that have sales records in both years.
     df_sales = df_sales.filter(col("revenue").isNotNull())
 
-    df_sales.show()
+    show(df_sales)
 
     # Provide distinct_years dynamically
     df_distinct_years = (
@@ -170,4 +171,4 @@ if __name__ == "__main__":
     df_sales = spark.createDataFrame(sales_data, ["product_id", "year", "revenue"])
 
     df_result = products_with_increasing_sales_rdd(df_products, df_sales)
-    df_result.show()
+    show(df_result)

@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import sum as spark_sum
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
@@ -15,4 +16,4 @@ def total_purchase_by_customer(df: DataFrame) -> DataFrame:
 if __name__ == "__main__":
     FILEPATH = "pyspark_playground/datasets/customer_purchases.csv"
     df = spark.read.csv(FILEPATH, inferSchema=True, header=True)
-    total_purchase_by_customer(df).show()
+    show(total_purchase_by_customer(df))

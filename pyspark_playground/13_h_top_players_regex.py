@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import regexp_extract, col, expr
+from utils import show
 
 spark = SparkSession.builder.appName("PlayerStats").getOrCreate()
 
@@ -38,4 +39,4 @@ if __name__ == "__main__":
     ]
     players_df = spark.createDataFrame(players_data, ["player", "runs", "50s/100s"])
     countries_df = spark.createDataFrame(countries_data, ["SRT", "country"])
-    top_players_regex(players_df, countries_df).show()
+    show(top_players_regex(players_df, countries_df))

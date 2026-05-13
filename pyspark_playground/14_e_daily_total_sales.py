@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession, DataFrame
+from utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -16,4 +17,4 @@ if __name__ == "__main__":
     ]
     columns = ["store_id", "product_id", "sale_date", "quantity_sold", "total_sales"]
     df = spark.createDataFrame(data, columns)
-    daily_total_sales(df).show()
+    show(daily_total_sales(df))

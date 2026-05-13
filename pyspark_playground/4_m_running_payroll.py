@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
+from utils import show
 
 spark = SparkSession.builder.appName("Spark Playground").getOrCreate()
 
@@ -34,4 +35,4 @@ if __name__ == "__main__":
     ]
     employees = spark.createDataFrame(employees_data, ["employee_id", "name", "position"])
     payroll = spark.createDataFrame(payroll_data, ["employee_id", "hours_worked", "hourly_rate"])
-    calculate_payroll(employees, payroll).show()
+    show(calculate_payroll(employees, payroll))
