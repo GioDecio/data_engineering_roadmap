@@ -12,7 +12,7 @@ from pyspark.sql.types import (
     StringType,
     BooleanType,
 )
-from utils import show
+from pyspark_playground.core.utils import show
 
 
 class Ex20:

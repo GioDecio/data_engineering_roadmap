@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession, DataFrame
 import pyspark.sql.functions as F
 from pyspark.sql import Window as W
-from utils import show
+from pyspark_playground.core.utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
