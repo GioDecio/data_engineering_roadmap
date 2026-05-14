@@ -230,8 +230,12 @@ def test_driver_details_for_riders(spark, func, rides_data, drivers_data, expect
 def test_customer_loyalty_score(
     spark, func, rides_data, payment_types_data, ratings_data, customers_data, expected
 ):
-    rides_df = spark.createDataFrame(rides_data, ["trip_id", "customer_id", "payment_type_id"])
-    payment_types_df = spark.createDataFrame(payment_types_data, ["payment_type_id", "payment_type"])
+    rides_df = spark.createDataFrame(
+        rides_data, ["trip_id", "customer_id", "payment_type_id"]
+    )
+    payment_types_df = spark.createDataFrame(
+        payment_types_data, ["payment_type_id", "payment_type"]
+    )
     ratings_df = spark.createDataFrame(ratings_data, ["trip_id", "rating"])
     customers_df = spark.createDataFrame(customers_data, ["customer_id", "name"])
     result = {
@@ -239,3 +243,63 @@ def test_customer_loyalty_score(
         for row in func(rides_df, payment_types_df, ratings_df, customers_df).collect()
     }
     assert result == expected
+
+
+# --- Exercise 20 ---
+
+
+@pytest.mark.parametrize("cls", [UnionDropDupJoin, JoinSplitUnion])
+@pytest.mark.parametrize("dim_data, dim_incoming_data, expected", EX20_PARAMS)
+def test_track_employment_history(spark, cls, dim_data, dim_incoming_data, expected):
+
+    dim_df = spark.createDataFrame(dim_data, schema=EX20_DIM_SCHEMA)
+    dim_incoming_df = spark.createDataFrame(
+        dim_incoming_data, schema=EX20_INCOMING_SCHEMA
+    )
+
+    result = {
+        (
+            row.emp_id,
+            row.name,
+            row.dept,
+            row.designation,
+            row.is_current,
+            row.start_date,
+            row.end_date,
+        )
+        for row in cls(dim_df, dim_incoming_df)
+        .track_employment_history()
+        .filter(col("emp_id") == 1)
+        .collect()
+    }
+
+    assert result == expected
+
+
+@pytest.mark.parametrize("cls", [UnionDropDupJoin, JoinSplitUnion])
+@pytest.mark.parametrize("dim_data, dim_incoming_data, expected", EX20_PARAMS)
+def test_track_employment_history_properties(
+    spark, cls, dim_data, dim_incoming_data, expected
+):
+
+    dim_df = spark.createDataFrame(dim_data, schema=EX20_DIM_SCHEMA)
+    dim_incoming_df = spark.createDataFrame(
+        dim_incoming_data, schema=EX20_INCOMING_SCHEMA
+    )
+
+    result_df = cls(dim_df, dim_incoming_df).track_employment_history()
+
+    # Changed records must be closed: end_date set
+    for row in result_df.filter(col("is_current") == False).collect():
+        assert row.end_date is not None
+
+    # New records (not in dim) must be active
+    dim_ids = {row.emp_id for row in dim_df.collect()}
+    incoming_ids = {row.emp_id for row in dim_incoming_df.collect()}
+    for row in result_df.filter(col("emp_id").isin(incoming_ids - dim_ids)).collect():
+        assert row.is_current == True
+
+    # Unchanged records (in dim but not in incoming) must remain active
+    for row in result_df.filter(col("emp_id").isin(dim_ids - incoming_ids)).collect():
+        assert row.is_current == True
+        assert row.end_date is None

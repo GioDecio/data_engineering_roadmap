@@ -1,4 +1,32 @@
 import pytest
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    IntegerType,
+    StringType,
+    BooleanType,
+)
+
+EX20_DIM_SCHEMA = StructType(
+    [
+        StructField("emp_id", IntegerType(), False),
+        StructField("name", StringType(), True),
+        StructField("dept", StringType(), True),
+        StructField("designation", StringType(), True),
+        StructField("is_current", BooleanType(), True),
+        StructField("start_date", StringType(), True),
+        StructField("end_date", StringType(), True),
+    ]
+)
+
+EX20_INCOMING_SCHEMA = StructType(
+    [
+        StructField("emp_id", IntegerType(), False),
+        StructField("name", StringType(), True),
+        StructField("dept", StringType(), True),
+        StructField("designation", StringType(), True),
+    ]
+)
 
 # Exercise 1 — filter_customers
 # (customer_id, name, email, age, purchase_amount)
@@ -291,4 +319,30 @@ EX19_PARAMS = [
         },
         id="basic",
     ),
+]
+
+
+EX20_PARAMS = [
+    pytest.param(
+        [
+            (1, "Alice", "HR", "Analyst", True, "2023-01-01", None),
+            (2, "Bob", "Finance", "Manager", True, "2023-01-01", None),
+            (3, "Carol", "IT", "Engineer", True, "2023-01-01", None),
+            (4, "Dave", "Sales", "Executive", True, "2023-01-01", None),
+        ],
+        [
+            (1, "Alice", "HR", "Sr. Analyst"),
+            (2, "Bob", "Finance", "Manager"),
+            (4, "Dave", "Marketing", "Executive"),
+            (5, "Eve", "IT", "Engineer"),
+        ],
+        {
+            (1, "Alice", "HR", "Analyst", False, "2023-01-01", "2025-07-05"),
+            (1, "Alice", "HR", "Sr. Analyst", True, "2025-07-05", None),
+            # (2, "Bob", "Finance", "Manager", True, "2023-01-01", None),
+            # (3, "Carol", "IT", "Engineer", True, "2023-01-01", None),
+            # (4, "Dave", "Sales", "Executive", True, "2023-01-01", None),
+        },
+        id="basic",
+    )
 ]
