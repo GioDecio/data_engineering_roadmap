@@ -51,8 +51,22 @@ def test_common_element_large(benchmark, func, l_1, l_2, exp):
 
 @pytest.mark.parametrize(
     "func",
-    [binary_search],
+    [binary_search, binary_search_2],
 )
 @pytest.mark.parametrize("search_list, value, exp", BS_PARAMS)
 def test_bs(benchmark, func, search_list, value, exp):
     assert benchmark(func, search_list, value) == exp
+
+
+@pytest.mark.parametrize(
+    "func",
+    [binary_search_with_order_check],
+)
+@pytest.mark.parametrize("search_list, value, exp", BS_PARAMS)
+def test_bs_order_check(benchmark, func, search_list, value, exp):
+    assert benchmark(func, search_list, value) == exp
+
+
+def test_bs_order_check_raises():
+    with pytest.raises(ListNotSortedError):
+        binary_search_with_order_check([3, 1, 2], 1)
