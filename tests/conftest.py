@@ -17,6 +17,4 @@ def spark():
 
 @pytest.fixture(scope="session")
 def runtime(spark):
-    rt = SparkRuntime()
-    rt._spark = spark
-    return rt
+    return SparkRuntime(spark=spark)
