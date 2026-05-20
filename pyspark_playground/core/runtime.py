@@ -8,9 +8,9 @@ class SparkRuntime:
 
     _SPARK: SparkSession | None = None
 
-    def __init__(self, *, app_name: str = "pyspark_playground") -> None:
+    def __init__(self, *, app_name: str = "pyspark_playground", spark: SparkSession | None = None) -> None:
         self.app_name = app_name
-        self._spark: SparkSession | None = None
+        self._spark = spark
         self._logger: Logger | None = None
 
     @property
