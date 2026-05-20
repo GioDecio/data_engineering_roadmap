@@ -248,7 +248,7 @@ toml = [
 [[package]]
 name = "data-engineering-roadmap"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "loguru" },
     { name = "pre-commit" },

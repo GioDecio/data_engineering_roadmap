@@ -1,5 +1,6 @@
 import pytest
 from pyspark.sql import SparkSession
+from pyspark_playground.core.runtime import SparkRuntime
 
 
 @pytest.fixture(scope="session")
@@ -12,3 +13,8 @@ def spark():
     )
     yield session
     session.stop()
+
+
+@pytest.fixture(scope="session")
+def runtime(spark):
+    return SparkRuntime(spark=spark)

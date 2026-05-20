@@ -1,4 +1,5 @@
 import pytest
+from pyspark.sql.functions import col
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -14,11 +15,11 @@ from pyspark_playground import *
 
 
 @pytest.mark.parametrize("data, expected_ids", EX1_PARAMS)
-def test_filter_customers(spark, data, expected_ids):
+def test_filter_customers(spark, runtime, data, expected_ids):
     df = spark.createDataFrame(
         data, ["customer_id", "name", "email", "age", "purchase_amount"]
     )
-    result_ids = {row.customer_id for row in filter_customers(df).collect()}
+    result_ids = {row.customer_id for row in Ex1(runtime, df).filter_customers().collect()}
     assert result_ids == expected_ids
 
 

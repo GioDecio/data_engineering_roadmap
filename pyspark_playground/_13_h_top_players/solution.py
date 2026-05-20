@@ -1,18 +1,18 @@
 from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import regexp_extract, col, expr
-from utils import show
+from pyspark.sql.functions import split, col, expr
+from pyspark_playground.core.utils import show
 
 spark = SparkSession.builder.appName("PlayerStats").getOrCreate()
 
 
-def top_players_regex(players_df: DataFrame, countries_df: DataFrame) -> DataFrame:
+def top_players(players_df: DataFrame, countries_df: DataFrame) -> DataFrame:
     players_df = (
         players_df
-        .withColumn("playername", regexp_extract(col("player"), r"^([^-]+)", 1))
-        .withColumn("SRT", regexp_extract(col("player"), r"-(.+)$", 1))
-        .withColumn("50s", regexp_extract(col("50s/100s"), r"^(\d+)", 1))
-        .withColumn("100s", regexp_extract(col("50s/100s"), r"/(\d+)$", 1))
-        .withColumn("sum", expr("CAST(`50s` AS INT) + CAST(`100s` AS INT)"))
+        .withColumn("playername", split(col("player"), "-")[0])
+        .withColumn("SRT", split(col("player"), "-")[1])
+        .withColumn("50s", split(col("50s/100s"), "/")[0].cast("int"))
+        .withColumn("100s", split(col("50s/100s"), "/")[1].cast("int"))
+        .withColumn("sum", expr("`50s` + `100s`"))
     )
     return (
         players_df.join(countries_df, on="SRT", how="left")
@@ -39,4 +39,4 @@ if __name__ == "__main__":
     ]
     players_df = spark.createDataFrame(players_data, ["player", "runs", "50s/100s"])
     countries_df = spark.createDataFrame(countries_data, ["SRT", "country"])
-    show(top_players_regex(players_df, countries_df))
+    show(top_players(players_df, countries_df))

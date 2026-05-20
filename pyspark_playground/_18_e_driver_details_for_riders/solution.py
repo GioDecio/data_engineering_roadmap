@@ -16,7 +16,7 @@ from pyspark.sql.types import (
     StringType,
     DoubleType,
 )
-from utils import show
+from pyspark_playground.core.utils import show
 
 spark = SparkSession.builder.getOrCreate()
 
