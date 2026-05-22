@@ -103,3 +103,30 @@ BS_PARAMS = [
     pytest.param(list(range(0, 1000, 2)), 500, 500, id="large_found"),
     pytest.param(list(range(0, 1000, 2)), 501, None, id="large_not_found"),
 ]
+
+
+EX6_PARAMS = [
+    pytest.param("mia", "mammamia", True, id="standard_true"),
+    pytest.param("cacao", "coccobello", False, id="standard_false"),
+]
+
+
+EX7_PARAMS = [
+    pytest.param(list("hello"), "olleh"),
+    pytest.param(list("Hannah"), "hannaH"),
+    pytest.param(list("mamma"), "ammam"),
+    pytest.param(list("pisa"), "asip"),
+    pytest.param(list("super"), "repus"),
+    pytest.param(
+        list("supercalifragilistichespiralidoso"), "osodilaripsehcitsiligarfilacrepus"
+    ),
+    pytest.param(list("platone"), "enotalp"),
+]
+
+
+EX8_PARAMS = [
+    pytest.param(1234, 4321),
+    pytest.param(123456789, 987654321),
+    pytest.param(3450, 543),
+    pytest.param(-12, -21, id="negative value"),
+]
