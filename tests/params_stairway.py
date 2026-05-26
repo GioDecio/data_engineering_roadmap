@@ -130,3 +130,16 @@ EX8_PARAMS = [
     pytest.param(3450, 543),
     pytest.param(-12, -21, id="negative value"),
 ]
+
+
+EX10_PARAMS = [
+    pytest.param(0, 0),
+    pytest.param(1, 1),
+    pytest.param(2, 1),
+    pytest.param(3, 2),
+    pytest.param(4, 3),
+    pytest.param(5, 5),
+    pytest.param(6, 8),
+    pytest.param(7, 13),
+    pytest.param(8, 21),
+]

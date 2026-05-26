@@ -110,3 +110,13 @@ class TestReverseInteger(unittest.TestCase):
 
     def test_positive_no_assertEqual_method(self):
         assert ex8.reverse_integer_by_shifting(123) == 321
+
+
+# --- exercise 10
+ex10 = Ex10()
+
+
+@pytest.mark.parametrize("method_name", ["two_pointers", "recursion", "memo"])
+@pytest.mark.parametrize("n, exp", par.EX10_PARAMS)
+def test_fibonacci(method_name, n, exp):
+    assert getattr(ex10, method_name)(n) == exp

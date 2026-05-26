@@ -6,3 +6,4 @@ from ._5_closest_to_zero import *
 from ._6_needle_in_haystack import EX6
 from ._7_reverse_string import Ex7
 from ._8_reverse_integer import *
+from ._10_fibonacci import *
