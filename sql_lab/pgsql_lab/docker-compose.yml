@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: lab_user
+      POSTGRES_PASSWORD: lab_password
+      POSTGRES_DB: lab_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./ddl:/docker-entrypoint-initdb.d:ro
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.pgsql
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: lab_user
+      DB_PASSWORD: lab_password
+      DB_NAME: lab_db
+
+volumes:
+  pgdata:

@@ -48,9 +48,15 @@ COMMOM_ELEMENT_PARAM = [
 ]
 
 COMMOM_ELEMENT_LARGE_PARAMS = [
-    pytest.param(list(range(0, 10000)), list(range(10000, 20000)), False, id="large_no_match"),
-    pytest.param(list(range(0, 10000)), list(range(0, 20000)), True, id="large_match_start"),
-    pytest.param(list(range(0, 10000)), list(range(9999, 20000)), True, id="large_match_end"),
+    pytest.param(
+        list(range(0, 10000)), list(range(10000, 20000)), False, id="large_no_match"
+    ),
+    pytest.param(
+        list(range(0, 10000)), list(range(0, 20000)), True, id="large_match_start"
+    ),
+    pytest.param(
+        list(range(0, 10000)), list(range(9999, 20000)), True, id="large_match_end"
+    ),
 ]
 
 CHAR_OCCURENCE_PARAMS = [
@@ -73,13 +79,67 @@ CHAR_OCCURENCE_PARAMS = [
     pytest.param("Hello", "H", 1, id="case_sensitive_upper"),
 ]
 
+
+from data_structures_and_algorithms.stairway_to_heaven.problems._4_binary_search import (
+    ListNotSortedError,
+)
+
 BS_PARAMS = [
     pytest.param([1, 3, 5, 7, 9], 5, 5, id="found_middle"),
     pytest.param([1, 3, 5, 7, 9], 1, 1, id="found_start"),
     pytest.param([1, 3, 5, 7, 9], 9, 9, id="found_end"),
     pytest.param([1, 3, 5, 7, 9], 4, None, id="not_present"),
     pytest.param([42], 42, 42, id="single_match"),
+    pytest.param([], 9, None, id="empty_list_value"),
+    pytest.param([], None, None, id="empty_list_no_value"),
     pytest.param([42], 1, None, id="single_no_match"),
+    pytest.param(
+        [3, 4, 1],
+        None,
+        None,
+        id="not_sorted_small",
+        marks=pytest.mark.xfail(raises=ListNotSortedError),
+    ),
     pytest.param(list(range(0, 1000, 2)), 500, 500, id="large_found"),
     pytest.param(list(range(0, 1000, 2)), 501, None, id="large_not_found"),
+]
+
+
+EX6_PARAMS = [
+    pytest.param("mia", "mammamia", True, id="standard_true"),
+    pytest.param("cacao", "coccobello", False, id="standard_false"),
+]
+
+
+EX7_PARAMS = [
+    pytest.param(list("hello"), "olleh"),
+    pytest.param(list("Hannah"), "hannaH"),
+    pytest.param(list("mamma"), "ammam"),
+    pytest.param(list("pisa"), "asip"),
+    pytest.param(list("super"), "repus"),
+    pytest.param(
+        list("supercalifragilistichespiralidoso"), "osodilaripsehcitsiligarfilacrepus"
+    ),
+    pytest.param(list("platone"), "enotalp"),
+]
+
+
+EX8_PARAMS = [
+    pytest.param(1234, 4321),
+    pytest.param(123456789, 987654321),
+    pytest.param(3450, 543),
+    pytest.param(-12, -21, id="negative value"),
+]
+
+
+EX10_PARAMS = [
+    pytest.param(0, 0),
+    pytest.param(1, 1),
+    pytest.param(2, 1),
+    pytest.param(3, 2),
+    pytest.param(4, 3),
+    pytest.param(5, 5),
+    pytest.param(6, 8),
+    pytest.param(7, 13),
+    pytest.param(8, 21),
 ]
