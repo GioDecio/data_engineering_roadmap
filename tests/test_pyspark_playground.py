@@ -19,7 +19,9 @@ def test_filter_customers(spark, runtime, data, expected_ids):
     df = spark.createDataFrame(
         data, ["customer_id", "name", "email", "age", "purchase_amount"]
     )
-    result_ids = {row.customer_id for row in Ex1(runtime, df).filter_customers().collect()}
+    result_ids = {
+        row.customer_id for row in Ex1(runtime, df).filter_customers().collect()
+    }
     assert result_ids == expected_ids
 
 
@@ -304,3 +306,13 @@ def test_track_employment_history_properties(
     for row in result_df.filter(col("emp_id").isin(dim_ids - incoming_ids)).collect():
         assert row.is_current == True
         assert row.end_date is None
+
+
+# --- Ex 22
+
+
+@pytest.mark.parametrize("method_name", ["solutionWithTempView", "SolutionWithPySpark"])
+@pytest.mark.parametrize("dim_data, dim_incoming_data, expected", EX22_PARAMS)
+def daily_stock(spark, cls, dim_data, dim_incoming_data, expected):
+
+    assert 1 == 1

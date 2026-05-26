@@ -64,6 +64,6 @@ if __name__ == "__main__":
 
     runtime = SparkRuntime()
     df = runtime.spark.createDataFrame(data, columns)
-    ex = Ex21(runtime, df)
+    ex = Ex21(df, runtime)
     show(ex.solutionWithTempView())
     show(ex.solutionWithPySpark())
