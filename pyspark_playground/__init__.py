@@ -33,3 +33,7 @@ from pyspark_playground._20_track_employment_history.solution import (
     UnionDropDupJoin,
     JoinSplitUnion,
 )
+
+from pyspark_playground._21_m_employee_attendance.solution import Ex21
+
+from pyspark_playground._22_daily_stock.solution import Ex22

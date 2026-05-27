@@ -7,6 +7,16 @@ from pyspark.sql.types import (
     BooleanType,
 )
 
+EX21_SCHEMA = StructType(
+    [
+        StructField("employee_id", IntegerType(), False),
+        StructField("department", StringType()),
+        StructField("date", StringType()),
+        StructField("status", StringType()),
+    ]
+)
+
+
 EX20_DIM_SCHEMA = StructType(
     [
         StructField("emp_id", IntegerType(), False),
@@ -344,5 +354,30 @@ EX20_PARAMS = [
             # (4, "Dave", "Sales", "Executive", True, "2023-01-01", None),
         },
         id="basic",
+    )
+]
+
+
+EX21_PARAMS = [
+    pytest.param(
+        [
+            (1, "HR", "2025-07-01", "Present"),
+            (1, "HR", "2025-07-02", "Absent"),
+            (1, "HR", "2025-07-03", "Present"),
+            (2, "Finance", "2025-07-01", "Leave"),
+            (2, "Finance", "2025-07-02", "Present"),
+            (3, "IT", "2025-07-01", "Absent"),
+            (3, "IT", "2025-07-02", "Absent"),
+            (3, "IT", "2025-07-03", "Present"),
+            (4, "IT", "2025-07-01", "Leave"),
+            (4, "IT", "2025-07-02", "Leave"),
+            (4, "IT", "2025-07-03", "Present"),
+        ],
+        {
+            1: (2, 1, 0),
+            2: (1, 0, 1),
+            3: (1, 2, 0),
+            4: (1, 0, 2),
+        },
     )
 ]

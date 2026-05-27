@@ -7,3 +7,5 @@ from ._6_needle_in_haystack import EX6
 from ._7_reverse_string import Ex7
 from ._8_reverse_integer import *
 from ._10_fibonacci import *
+from ._11_yay import *
+from ._12_encoded_language import *
