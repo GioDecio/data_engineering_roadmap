@@ -43,6 +43,20 @@ class Ex21(SparkBase):
 
         return df_pivot
 
+    def solutionWithPySparkDynamic(self):
+
+        row_distinct_statuses = self.df.select("status").distinct().collect()
+        distinct_statuses = [row["status"] for row in row_distinct_statuses]
+
+        df_pivot = (
+            self.df.groupBy("employee_id")
+            .pivot("status", distinct_statuses)
+            .count()
+            .fillna(0)
+        )
+
+        return df_pivot.orderBy("employee_id")
+
 
 if __name__ == "__main__":
 
@@ -64,6 +78,7 @@ if __name__ == "__main__":
 
     runtime = SparkRuntime()
     df = runtime.spark.createDataFrame(data, columns)
-    ex = Ex21(df, runtime)
+    ex = Ex21(df, runtime=runtime)
     show(ex.solutionWithTempView())
     show(ex.solutionWithPySpark())
+    show(ex.solutionWithPySparkDynamic())

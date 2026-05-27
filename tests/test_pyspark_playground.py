@@ -308,11 +308,40 @@ def test_track_employment_history_properties(
         assert row.end_date is None
 
 
+# --- Ex 21
+
+
+@pytest.mark.parametrize("data, expected", EX21_PARAMS)
+def test_employment_attendance_with_tempview(spark, runtime, data, expected):
+    df = spark.createDataFrame(data, schema=EX21_SCHEMA)
+    result = {
+        row.employee_id: (row.Present, row.Absent, row.Leave)
+        for row in Ex21(df, runtime=runtime).solutionWithTempView().collect()
+    }
+    assert result == expected
+
+
+@pytest.mark.parametrize(
+    "method_name", ["solutionWithPySpark", "solutionWithPySparkDynamic"]
+)
+@pytest.mark.parametrize("data, expected", EX21_PARAMS)
+def test_employment_attendance(spark, runtime, data, expected, method_name):
+    df = spark.createDataFrame(data, schema=EX21_SCHEMA)
+    ex21 = Ex21(df, runtime=runtime)
+    result = {
+        row.employee_id: (row.Present, row.Absent, row.Leave)
+        for row in getattr(ex21, method_name)().collect()
+    }
+    assert result == expected
+
+
 # --- Ex 22
+# @pytest.mark.parametrize("method_name", ["solutionWithTempView", "SolutionWithPySpark"])
+# @pytest.mark.parametrize("data, expected", EX22_PARAMS)
+# def daily_stock(spark, method_name, data, expected):
 
+#     df = spark.createDataFrame(data)
 
-@pytest.mark.parametrize("method_name", ["solutionWithTempView", "SolutionWithPySpark"])
-@pytest.mark.parametrize("dim_data, dim_incoming_data, expected", EX22_PARAMS)
-def daily_stock(spark, cls, dim_data, dim_incoming_data, expected):
+#     result = expected
 
-    assert 1 == 1
+#     assert getattr(ex, methresult == expected

@@ -143,3 +143,48 @@ EX10_PARAMS = [
     pytest.param(7, 13),
     pytest.param(8, 21),
 ]
+
+EX11_PARAMS = [
+    pytest.param("Pig", "igPay"),
+    pytest.param("latin", "atinlay"),
+    pytest.param("smile", "ilesmay"),
+    pytest.param("floor", "oorflay"),
+    pytest.param("string", "ingstray"),
+    pytest.param("egg", "eggyay"),
+    pytest.param("explain", "explainyay"),
+    pytest.param("I", "Iyay"),
+]
+
+
+EX12_PARAMS = [
+    pytest.param("pleased to meet you", "easedplay otay eetmay ouyay", id="pleased"),
+    pytest.param(
+        "how much does it cost", "owhay uchmay oesday ityay ostcay", id="how_much"
+    ),
+    pytest.param(
+        "i would rather be at the beach",
+        "iyay ouldway atherray ebay atyay ethay eachbay",
+        id="i_would",
+    ),
+    pytest.param(
+        "a tree whose elements have at most two children is called a binary tree",
+        "ayay eetray osewhay elementsyay avehay atyay ostmay otway ildrenchay isyay alledcay ayay inarybay eetray",
+        id="binary_tree",
+    ),
+]
+
+
+EX12_PARAMS_2 = [
+    pytest.param("Pleased to meet you", "Easedplay otay eetmay ouyay", id="pleased"),
+    pytest.param("Do you speak Pig Latin", "Oday ouyay eakspay Igpay Atinlay", id="pig_latin"),
+    pytest.param(
+        "Time flies when you are having fun",
+        "Imetay iesflay enwhay ouyay areyay avinghay unfay",
+        id="time_flies",
+    ),
+    pytest.param(
+        "A tree whose elements have at most two children is called a BINARY TREE",
+        "Ayay eetray osewhay elementsyay avehay atyay ostmay otway ildrenchay isyay alledcay ayay INARYBAY EETRAY",
+        id="binary_tree",
+    ),
+]

@@ -120,3 +120,29 @@ ex10 = Ex10()
 @pytest.mark.parametrize("n, exp", par.EX10_PARAMS)
 def test_fibonacci(method_name, n, exp):
     assert getattr(ex10, method_name)(n) == exp
+
+
+# --- exercise 11
+ex11 = Ex11()
+
+
+@pytest.mark.parametrize("method_name", ["yay"])
+@pytest.mark.parametrize("s, exp", par.EX11_PARAMS)
+def test_yay(method_name, s, exp):
+    assert getattr(ex11, method_name)(s) == exp
+
+
+# --- exercise 12
+ex12 = Ex12()
+
+
+@pytest.mark.parametrize("method_name", ["encoded_language"])
+@pytest.mark.parametrize("s, exp", par.EX12_PARAMS)
+def test_encoded_language(method_name, s, exp):
+    assert getattr(ex12, method_name)(s) == exp
+
+
+@pytest.mark.parametrize("method_name", ["encoded_language2"])
+@pytest.mark.parametrize("s, exp", par.EX12_PARAMS_2)
+def test_encoded_language2(method_name, s, exp):
+    assert getattr(ex12, method_name)(s) == exp
